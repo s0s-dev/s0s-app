@@ -1,0 +1,32 @@
+{
+  "name": "s0s-app",
+  "version": "1.0.0",
+  "description": "Code for the s0s application",
+  "main": "catbot.js",
+  "scripts": {
+    "start": "node catbot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petpixels/catbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/petpixels/catbot/issues"
+  },
+  "homepage": "https://github.com/petpixels/catbot#readme",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "botkit": "^0.7.4",
+    "mongodb": "^3.2.2",
+    "discord.js": "^11.4.2",
+    "node-nlp": "^2.5.2",
+    "sentiment": "^5.0.1",
+    "winston": "^3.2",
+    "winston-daily-rotate-file": "3.8.0",
+    "request": "^2.88"
+  }
+}
