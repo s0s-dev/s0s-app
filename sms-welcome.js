@@ -8,6 +8,9 @@ var bot = require('./lib/bot')
 var gopher = new bot()
 var gopher_bot_id = "606641408044171264" // shouldn't be hardcoded but is
 
+// move this to a config file so it doesn't require a code change
+var welcome_message = "Thank you for contacting $0$. We are here to help people who need it."
+
 // setup connection to twilio
 var twilio = Botkit.twiliosmsbot({
     account_sid: bot_secret.twilio_sid,
@@ -31,7 +34,7 @@ var db_url = bot_secret.mongo_url
 var chan_general = "574103231353847844"
 
 discord_bot.on('channelCreate',function(channel) {
-    channel.send("Welcome to $0$")
+    channel.send(welcome_message)
     console.log("User greeted.")
   setTimeout(function() {
   },1000)

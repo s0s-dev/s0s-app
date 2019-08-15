@@ -50,28 +50,44 @@ discord_bot.on('ready', () => {
 })
 
 discord_bot.on('message', (receivedMessage) => {
-    var chan = receivedMessage.channel.name
-    var user = receivedMessage.author.username
-    console.log(receivedMessage.author.username + " : " + receivedMessage.author.id)
+  var chan = receivedMessage.channel.name
+  var user = receivedMessage.author.username
+  console.log(receivedMessage.author.username + " : " + receivedMessage.author.id)
 
-    if (chan == "welcome") {
+  var chatlog = {}
+  chatlog.channel = receivedMessage.channel.name
+  chatlog.author = receivedMessage.author.username
+  chatlog.message = receivedMessage.content
+  chatlog.date = Date.now()
 
-    } else {
-        var twilio_send_number = "+" + chan
-        // don't duplicate messages
-        if (receivedMessage.author.id != gopher_bot_id) {
-            twilio_send.messages.create({
-                "body": receivedMessage.content,
-                "to": twilio_send_number,  // Text this number
-                "from": '+1' + bot_secret.twilio_number // From a valid Twilio number
-            })
-            .then((message) => console.log(message.sid))
+  gopher.insertDataMongo(chatlog,"discord","messages")
 
-            // log outgoing messages to database
-            // var db_log_msg = JSON.parse(receivedMessage.content)
-	    // gopher.insertDataMongo(db_log_msg,"twilio","discord")
-        }
+  if (chan == "welcome") {
+
+  } else {
+    // extract numbers, no letters
+    var only_numbers = /[0-9]/g
+    var found = chan.match(only_numbers)
+
+    console.log("Sending message to " + found.toString())
+
+    if (found) {
+      var twilio_send_number = "+" + found.toString()
+      // don't duplicate messages
+      if (receivedMessage.author.id != gopher_bot_id) {
+          twilio_send.messages.create({
+              "body": receivedMessage.content,
+              "to": twilio_send_number,  // Text this number
+              "from": '+1' + bot_secret.twilio_number // From a valid Twilio number
+          })
+          .then((message) => console.log(message.sid))
+
+          // log outgoing messages to database
+          // var db_log_msg = JSON.parse(receivedMessage.content)
+         // gopher.insertDataMongo(db_log_msg,"twilio","discord")
+      }
     }
+  }
 })
 
 
