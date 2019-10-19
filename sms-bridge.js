@@ -71,7 +71,15 @@ discord_bot.on('message', (receivedMessage) => {
 
     console.log("Sending message to " + found.toString())
 
-    if (found) {
+    // ignore if first charachter is an @ or < >
+    // this lets us summon bots without showing the user
+    var firstLetter = receivedMessage.content.charAt(0)
+    var summon = false
+    if (!(firstLetter.match(/^[^@><]*$/g))) {
+      summon = true // match on @ for summon
+    }
+
+    if ((found) && (!(summon))) {
       var twilio_send_number = "+" + found.toString()
       // don't duplicate messages
       if (receivedMessage.author.id != gopher_bot_id) {
