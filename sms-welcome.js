@@ -34,10 +34,10 @@ discord_bot.on('channelCreate',function(channel) {
   if (isNumber(channel.name)) {
     channel.send(welcome_message)
     console.log("User greeted.")
-    setTimeout(function() {
+    var disclaimer_timer = setTimeout(function() {
       channel.send(disclaimer)
       console.log("Dislaimer sent.")
-    },1500)
+    },3000)
   }
 })
 
