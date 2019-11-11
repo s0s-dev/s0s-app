@@ -23,8 +23,6 @@
     "botkit": "^0.7.4",
     "mongodb": "^3.2.2",
     "discord.js": "^11.4.2",
-    "node-nlp": "^2.5.2",
-    "sentiment": "^5.0.1",
     "winston": "^3.2",
     "winston-daily-rotate-file": "3.8.0",
     "request": "^2.88"

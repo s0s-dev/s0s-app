@@ -5,22 +5,17 @@ const bot_secret = require('./lib/bot-secret')
 
 // load common bot functions
 var bot = require('./lib/bot')
-var gopher = new bot()
-var gopher_bot_id = "606641408044171264" // shouldn't be hardcoded but is
 
-// move this to a config file so it doesn't require a code change
-var welcome_message = "Thank you for contacting $0$. We are here to help people who need it."
+// loaded from a config file so it doesn't require a
+// code change to change the greeting and dislaimer
+var welcome_file = require('./conf/welcome.json')
+welcome = welcome_file.welcome
 
-// setup connection to twilio
-var twilio = Botkit.twiliosmsbot({
-    account_sid: bot_secret.twilio_sid,
-    auth_token: bot_secret.twilio_auth_token,
-    twilio_number: bot_secret.twilio_number,
-    debug: false
-})
-var twilio_send_client = require('twilio')
-var twilio_send = new twilio_send_client(bot_secret.twilio_sid, bot_secret.twilio_auth_token)
-var twilio_bot = twilio.spawn({})
+var welcome_message = welcome.greeting
+var disclaimer = welcome.disclaimer
+
+console.log(welcome_message)
+console.log(disclaimer)
 
 // setup connection to discord
 var discord = require('discord.js')
@@ -34,10 +29,25 @@ var db_url = bot_secret.mongo_url
 var chan_general = "574103231353847844"
 
 discord_bot.on('channelCreate',function(channel) {
+  console.log("Channel created: " + channel.name)
+
+  if (isNumber(channel.name)) {
     channel.send(welcome_message)
     console.log("User greeted.")
-  setTimeout(function() {
-  },1000)
+    setTimeout(function() {
+      channel.send(disclaimer)
+      console.log("Dislaimer sent.")
+    },1500)
+  }
 })
 
-
+function isNumber(num) {
+  var ret_val = false
+  var regex = /^[0-9]*$/g
+  if (num) {
+    if (num.match(regex)) {
+      ret_val = true
+    }
+  }
+  return ret_val
+}
