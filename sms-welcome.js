@@ -32,12 +32,16 @@ discord_bot.on('channelCreate',function(channel) {
   console.log("Channel created: " + channel.name)
 
   if (isNumber(channel.name)) {
-    channel.send(welcome_message)
-    console.log("User greeted.")
-    var disclaimer_timer = setTimeout(function() {
-      channel.send(disclaimer)
-      console.log("Dislaimer sent.")
-    },3000)
+    if (welcome_message) {
+      channel.send(welcome_message)
+      console.log("User greeted.")
+    }
+    if (disclaimer) {
+      var disclaimer_timer = setTimeout(function() {
+        channel.send(disclaimer)
+        console.log("Dislaimer sent.")
+      },5000)
+    }
   }
 })
 
