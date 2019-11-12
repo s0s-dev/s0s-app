@@ -1,6 +1,6 @@
 {
   "welcome": {
-    "greeting": "Welcome to $O$. We are a volunteer run community organization. Please let us know how we can help. Learn more at https://S0S.app",
-    "disclaimer": "Important note: text message rates may apply. If you do not have unlimited texting, please let us know."
+    "greeting": "Welcome to $O$. We are a volunteer run community organization. Please let us know how we can help.",
+    "disclaimer": "Important note: text message rates may apply. If you do not have unlimited texting, please let us know. https://S0S.app"
   }
 }
