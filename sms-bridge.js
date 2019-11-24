@@ -56,6 +56,7 @@ discord_bot.on('message', (receivedMessage) => {
 
   var chatlog = {}
   chatlog.channel = receivedMessage.channel.name
+  chatlog.channel_id = receivedMessage.channel.id
   chatlog.author = receivedMessage.author.username
   chatlog.message = receivedMessage.content
   chatlog.date = Date.now()
