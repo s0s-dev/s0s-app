@@ -7,7 +7,7 @@ const bot_secret = require('./lib/bot-secret')
 // load common bot functions
 var bot = require('./lib/bot')
 var gopher = new bot()
-var gopher_bot_id = "606641408044171264" // shouldn't be hardcoded but is
+var gopher_bot_id = bot_secret.bot_id // shouldn't be hardcoded but is
 
 // setup connection to twilio
 var twilio = Botkit.twiliosmsbot({
@@ -67,7 +67,9 @@ discord_bot.on('message', (receivedMessage) => {
     var only_numbers = /[0-9]/g
     var found = chan.match(only_numbers)
 
-    console.log("Sending message to " + found.toString())
+    if (found) {
+      console.log("Sending message to " + found.toString())
+    }
 
     // ignore if first charachter is an @ or < >
     // this lets us summon bots without showing the user
